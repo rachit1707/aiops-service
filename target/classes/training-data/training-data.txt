@@ -1,0 +1,61 @@
+others qwerty uiop
+orderWorkgroup Unable to process order
+orderWorkgroup Order failed
+orderWorkgroup Failed to process order
+orderWorkgroup multiple orders failed
+orderWorkgroup error-1001
+orderWorkgroup order not found
+orderWorkgroup Unable to process order
+orderWorkgroup Order failed
+orderWorkgroup Failed to process order
+orderWorkgroup multiple orders failed
+orderWorkgroup error-1001
+orderWorkgroup order not found
+orderCancelWorkgroup wrong order please cancel
+orderCancelWorkgroup order jeopardy
+orderCancelWorkgroup order jeopardy cancel order
+orderCancelWorkgroup cancel order
+networkWorkgroup unable to connect to network
+networkWorkgroup no network
+networkWorkgroup no signal
+networkWorkgroup out of coverage
+networkWorkgroup error-1002
+networkWorkgroup signal facility not available
+networkWorkgroup unable to connect to network
+networkWorkgroup no network
+networkWorkgroup no signal
+networkWorkgroup out of coverage
+networkWorkgroup error-1002
+networkWorkgroup signal facility not available
+productWorkgroup product not visible
+productWorkgroup catalog issue
+productWorkgroup product showing no price
+productWorkgroup product description is wrong
+productWorkgroup error-1003
+productWorkgroup product price is not available
+productWorkgroup product not visible
+productWorkgroup catalog issue
+productWorkgroup product showing no price
+productWorkgroup product description is wrong
+productWorkgroup error-1003
+productWorkgroup product price is not available
+productWorkgroup missing catalog
+changeRoleWorkgroup change role of user
+changeRoleWorkgroup user asked to change role
+changeRoleWorkgroup wrong role assigned to user
+changeRoleWorkgroup need to change user role
+FinX-L1-OPS-ACC FinX Access Issue
+FinX-L1-OPS-ACC FinX Access
+FinX-L1-OPS-ACC Fin-X Access Issue
+FinX-L1-OPS-ACC Access Issue FinX
+FinX-L1-OPS-ACC User does not have access to FINX
+FinX-L1-OPS-ACC Login Issue for FIN-X
+FinX-L1-OPS-ACC Login Issue
+FinX-L1-OPS-DEP Production Deployment
+FinX-L1-OPS-DEP Deployment
+FinX-L1-OPS-DEP Fin-X Prod Deployment
+FinX-L1-OPS-DEP Fin-X Production Deployment
+FIN-X-Performance FIN-X Performance
+FIN-X-Performance Performance issue finx
+FIN-X-Performance Issue with performance of FINX
+FIN-X-Performance Performance Issue FIN-X

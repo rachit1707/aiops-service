@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0xifhl4" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.15.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
+  <bpmn:process id="cloud-jira-connector" name="cloud-jira-connector" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_19kqajx</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_19kqajx" sourceRef="StartEvent_1" targetRef="Activity_0lf6lkp" />
+    <bpmn:exclusiveGateway id="Gateway_13nt405" name="Attachment Exists">
+      <bpmn:incoming>Flow_1iopr30</bpmn:incoming>
+      <bpmn:outgoing>Flow_1kow3kn</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0jjzyn4</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1iopr30" sourceRef="Activity_0lf6lkp" targetRef="Gateway_13nt405" />
+    <bpmn:sequenceFlow id="Flow_1kow3kn" name="Yes" sourceRef="Gateway_13nt405" targetRef="Activity_0a3jdwg">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:exclusiveGateway id="Gateway_1tyocgj">
+      <bpmn:incoming>Flow_0javzd2</bpmn:incoming>
+      <bpmn:incoming>Flow_0jjzyn4</bpmn:incoming>
+      <bpmn:outgoing>Flow_1rkpf56</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0javzd2" sourceRef="Activity_0a3jdwg" targetRef="Gateway_1tyocgj" />
+    <bpmn:endEvent id="Event_0t9zd16">
+      <bpmn:incoming>Flow_1rkpf56</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1rkpf56" sourceRef="Gateway_1tyocgj" targetRef="Event_0t9zd16" />
+    <bpmn:sequenceFlow id="Flow_0jjzyn4" name="No" sourceRef="Gateway_13nt405" targetRef="Gateway_1tyocgj">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:scriptTask id="Activity_0lf6lkp" name="Create Jira Ticket" scriptFormat="groovy">
+      <bpmn:incoming>Flow_19kqajx</bpmn:incoming>
+      <bpmn:outgoing>Flow_1iopr30</bpmn:outgoing>
+      <bpmn:script>import java.net.Proxy.Type
+import groovy.json.JsonSlurper
+
+def ticket_description = execution.getVariable('ticket_description')
+def ticket_summary = execution.getVariable('ticket_summary')
+def priority = execution.getVariable('priority')
+def acceptance_criteria = execution.getVariable('acceptance_criteria')
+def reporter = execution.getVariable('reporter')
+def assignee = execution.getVariable('assignee')
+
+def jira_ip = execution.getVariable('jira_ip')
+def jira_authorizarion = execution.getVariable('jira_authorizarion')
+def proxy_ip = execution.getVariable('proxy_ip')
+def proxy_port = execution.getVariable('proxy_port')
+def post = null
+
+if(proxy_ip != null &amp;&amp; proxy_port != null) {
+  Proxy proxy = new Proxy(Type.HTTP, new InetSocketAddress(proxy_ip, Integer.parseInt(proxy_port)))
+  post = new URL(jira_ip).openConnection(proxy)
+} else {
+  post = new URL(jira_ip).openConnection()
+}
+
+// Proxy proxy = new Proxy(Type.HTTP, new InetSocketAddress("139.7.95.77", 8080))
+// def post = new URL("https://gno-poc.atlassian.net/rest/api/3/issue").openConnection(proxy)
+
+def message = '''{
+  "fields": {
+    "description": {
+      "content": [
+        {
+          "content": [
+            {
+              "text": "'''+ticket_description+'''",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        }
+      ],
+      "type": "doc",
+      "version": 1
+    },
+    "issuetype": {
+      "id": "10001"
+    },
+    "customfield_10039": {
+      "value": "'''+priority+'''"
+    },    
+    "customfield_10041": {
+      "content": [
+        {
+          "content": [
+            {
+              "text": "'''+acceptance_criteria+'''",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        }
+      ],
+      "type": "doc",
+      "version": 1
+    },  
+    "reporter": {
+      "accountId": "'''+reporter+'''"
+    },
+    "assignee" :{
+      "accountId": "'''+assignee+'''"
+    },
+    "project": {
+      "id": "10000"
+    },
+    "summary": "'''+ticket_summary+'''"
+  },
+  "update": {}
+}'''
+
+println("Input request========"+message)
+post.setRequestMethod("POST")
+post.setDoOutput(true)
+post.setRequestProperty("Accept", "application/json")
+post.setRequestProperty("Content-Type", "application/json")
+// post.setRequestProperty("Authorization", "Basic dHlwZXRvbWFoYW50ZXNoQGdtYWlsLmNvbTpBVEFUVDN4RmZHRjB4U3I0YXVOdmN2QXRDYk5Xa3NPem1PcDFGS25kaWNEVUtkR3FQM3FDaVVUZF9TTFAzYVJHWlBaWHRnZHhJZFhDMm05MVE3ZjdDMzlXTHRZeDJHam5oMDNUcEZlOXdNSURqd1lrbDVYMm5nckZrdnRrT1p6TkJ3Qm1HdjEzWWpCaTVLaTlxZ1hCbnJ1ajk4MnZHSjNnTDN0RU15dWJ2REFYMC1CQ0RXUEl6Vm89MzEwREJFMzg=")
+post.setRequestProperty("Authorization", jira_authorizarion)
+post.getOutputStream().write(message.getBytes("UTF-8"));
+
+def postRC = post.getResponseCode();
+response = post.getInputStream().getText()
+
+execution.setVariable('response', response)
+execution.setVariable('respons_code', postRC)
+println('Jira Ticket Creation Status======='+postRC)
+//def jsonSlurper = new JsonSlurper()
+//def response_json = jsonSlurper.parseText(response)
+//ticket_id = response_json["key"]
+
+//execution.setVariable("ticket_id", ticket_id)</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:scriptTask id="Activity_0a3jdwg" name="Add Attachments" scriptFormat="groovy">
+      <bpmn:incoming>Flow_1kow3kn</bpmn:incoming>
+      <bpmn:outgoing>Flow_0javzd2</bpmn:outgoing>
+      <bpmn:script>println('Attachment Script Here!')</bpmn:script>
+    </bpmn:scriptTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="cloud-jira-connector">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_13nt405_di" bpmnElement="Gateway_13nt405" isMarkerVisible="true">
+        <dc:Bounds x="395" y="152" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="376" y="209" width="88" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1tyocgj_di" bpmnElement="Gateway_1tyocgj" isMarkerVisible="true">
+        <dc:Bounds x="655" y="152" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0t9zd16_di" bpmnElement="Event_0t9zd16">
+        <dc:Bounds x="762" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_18xqupc_di" bpmnElement="Activity_0lf6lkp">
+        <dc:Bounds x="240" y="137" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0b0yukl_di" bpmnElement="Activity_0a3jdwg">
+        <dc:Bounds x="500" y="137" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_19kqajx_di" bpmnElement="Flow_19kqajx">
+        <di:waypoint x="188" y="177" />
+        <di:waypoint x="240" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1iopr30_di" bpmnElement="Flow_1iopr30">
+        <di:waypoint x="340" y="177" />
+        <di:waypoint x="395" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1kow3kn_di" bpmnElement="Flow_1kow3kn">
+        <di:waypoint x="445" y="177" />
+        <di:waypoint x="500" y="177" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="455" y="159" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0javzd2_di" bpmnElement="Flow_0javzd2">
+        <di:waypoint x="600" y="177" />
+        <di:waypoint x="655" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1rkpf56_di" bpmnElement="Flow_1rkpf56">
+        <di:waypoint x="705" y="177" />
+        <di:waypoint x="762" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0jjzyn4_di" bpmnElement="Flow_0jjzyn4">
+        <di:waypoint x="420" y="152" />
+        <di:waypoint x="420" y="70" />
+        <di:waypoint x="680" y="70" />
+        <di:waypoint x="680" y="152" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="432" y="113" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0xv536n" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.11.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
+  <bpmn:process id="Process_16jfs8b" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1u5j83i</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1u5j83i" sourceRef="StartEvent_1" targetRef="Activity_17bss47" />
+    <bpmn:sequenceFlow id="Flow_0lsycxk" sourceRef="Activity_17bss47" targetRef="Activity_0x8etrj" />
+    <bpmn:endEvent id="Event_0g3li8z">
+      <bpmn:incoming>Flow_1tz93ja</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1tz93ja" sourceRef="Activity_0x8etrj" targetRef="Event_0g3li8z" />
+    <bpmn:scriptTask id="Activity_17bss47" name="Jira Ticket Input" scriptFormat="groovy">
+      <bpmn:incoming>Flow_1u5j83i</bpmn:incoming>
+      <bpmn:outgoing>Flow_0lsycxk</bpmn:outgoing>
+      <bpmn:script>def ticket_description = "As a User Load the Assignee name &amp; Assignee area So that able to send SMS &amp; Email message to the user (assignee name) belongs to area (assignee area)."
+def ticket_summary = "Send Remider Camunda Workflow"
+def priority = "Medium"
+def acceptance_criteria = "If CDB2 has assignee name (same assignee names coming when subprocess is triggered) available then Email &amp; Message will be sent to all these assignee name."
+def reporter = "6391f104a593cb822e99118b"
+def assignee = "6391f104a593cb822e99118b"
+
+def jira_ip = "https://gno-poc.atlassian.net/rest/api/3/issue"
+def jira_authorizarion = "Basic dHlwZXRvbWFoYW50ZXNoQGdtYWlsLmNvbTpBVEFUVDN4RmZHRjB4U3I0YXVOdmN2QXRDYk5Xa3NPem1PcDFGS25kaWNEVUtkR3FQM3FDaVVUZF9TTFAzYVJHWlBaWHRnZHhJZFhDMm05MVE3ZjdDMzlXTHRZeDJHam5oMDNUcEZlOXdNSURqd1lrbDVYMm5nckZrdnRrT1p6TkJ3Qm1HdjEzWWpCaTVLaTlxZ1hCbnJ1ajk4MnZHSjNnTDN0RU15dWJ2REFYMC1CQ0RXUEl6Vm89MzEwREJFMzg="
+def proxy_ip = "139.7.95.77"
+def proxy_port = "8080"
+
+
+execution.setVariable("ticket_description", ticket_description)
+execution.setVariable("ticket_summary", ticket_summary)
+execution.setVariable("priority", priority)
+execution.setVariable("acceptance_criteria", acceptance_criteria)
+execution.setVariable("reporter", reporter)
+execution.setVariable("assignee", assignee)
+execution.setVariable("jira_ip", jira_ip)
+execution.setVariable("jira_authorizarion", jira_authorizarion)
+execution.setVariable("proxy_ip", proxy_ip)
+execution.setVariable("proxy_port", proxy_port)</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:callActivity id="Activity_0x8etrj" name="Create Jira Ticket" calledElement="cloud-jira-connector">
+      <bpmn:extensionElements>
+        <camunda:in source="ticket_description" target="ticket_description" />
+        <camunda:in source="ticket_summary" target="ticket_summary" />
+        <camunda:in source="priority" target="priority" />
+        <camunda:in source="acceptance_criteria" target="acceptance_criteria" />
+        <camunda:in source="reporter" target="reporter" />
+        <camunda:in source="assignee" target="assignee" />
+        <camunda:in source="jira_ip" target="jira_ip" />
+        <camunda:in source="jira_authorizarion" target="jira_authorizarion" />
+        <camunda:in source="proxy_ip" target="proxy_ip" />
+        <camunda:in source="proxy_port" target="proxy_port" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0lsycxk</bpmn:incoming>
+      <bpmn:outgoing>Flow_1tz93ja</bpmn:outgoing>
+    </bpmn:callActivity>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_16jfs8b">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0g3li8z_di" bpmnElement="Event_0g3li8z">
+        <dc:Bounds x="592" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_078d78k_di" bpmnElement="Activity_17bss47">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_14ggn5h_di" bpmnElement="Activity_0x8etrj">
+        <dc:Bounds x="430" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1u5j83i_di" bpmnElement="Flow_1u5j83i">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1tz93ja_di" bpmnElement="Flow_1tz93ja">
+        <di:waypoint x="530" y="117" />
+        <di:waypoint x="592" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0lsycxk_di" bpmnElement="Flow_0lsycxk">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="430" y="117" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

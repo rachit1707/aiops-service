@@ -1,0 +1,66 @@
+{
+  "components": [
+    {
+      "text": "<h1>Agent Approval Form</h1>",
+      "type": "text",
+      "layout": {
+        "row": "Row_07hipex",
+        "columns": null
+      },
+      "id": "Field_00se5ut"
+    },
+    {
+      "label": "Predicted Data",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0086v1j",
+        "columns": null
+      },
+      "id": "Field_1i7aii6",
+      "key": "predictedData",
+      "disabled": true
+    },
+    {
+      "label": "Description",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_103rzbn",
+        "columns": null
+      },
+      "id": "Field_0radryk",
+      "key": "description",
+      "disabled": true
+    },
+    {
+      "values": [
+        {
+          "label": "Accept",
+          "value": "true"
+        },
+        {
+          "label": "Reject",
+          "value": "false"
+        }
+      ],
+      "label": "Radio",
+      "type": "radio",
+      "layout": {
+        "row": "Row_1np6qb1",
+        "columns": null
+      },
+      "id": "Field_0bb69iw",
+      "key": "agentStatus",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "agentApprovalForm",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.9.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "schemaVersion": 7
+}

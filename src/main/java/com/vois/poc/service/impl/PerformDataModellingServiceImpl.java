@@ -4,6 +4,7 @@ import com.vois.poc.model.AuditModel;
 import com.vois.poc.model.PredictionModel;
 import com.vois.poc.service.PerformDataModellingService;
 import com.vois.poc.util.MLPredictionUtil;
+import com.vois.poc.util.RcaUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -52,6 +53,7 @@ public class PerformDataModellingServiceImpl implements PerformDataModellingServ
                             .ban(auditModel.getBan())
                             .agentAccepted(false)
                             .taskFlowId("")
+                            .rca(getRcaForBan(auditModel.getBan()))
                             .description(auditModel.getDescription())
                             .type(auditModel.getType())
                             .workgroup(auditModel.getWorkgroup())
@@ -64,6 +66,11 @@ public class PerformDataModellingServiceImpl implements PerformDataModellingServ
             );
         }
         return predictionModels;
+    }
+
+    private String getRcaForBan(String ban) {
+        RcaUtil.initiateRCAData();
+        return RcaUtil.getRcaForBan(ban);
     }
 
     private String getRecoveryActionFromWorkgroup(String workgroup) {

@@ -23,6 +23,7 @@ public class PredictionModel implements Serializable {
     private String status;
     private String workgroup;
     private String recoveryActions;
+    private String rca;
     private Instant updatedAt;
     private Instant createdAt;
 }

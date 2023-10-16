@@ -24,7 +24,4 @@ public class AuditModel {
     private Instant loggedAt;
     private Instant createdAt;
     private Instant updatedAt;
-    //how to store history data to analyze the changes made by the user
-    //[op,field,oldValue,newValue,recoveryUrl,timestamp]
-    //user status
 }

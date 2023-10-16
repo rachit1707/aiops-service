@@ -29,6 +29,7 @@ public class UpdatePredictionModelImpl implements UpdatePredictionService {
     @Override
     public void updatePredictions(List<PredictionModel> predictionModels) throws URISyntaxException {
         URI uri = new URI("http://localhost:8081/prediction");
+        //add rca to prediction data
         restTemplate.postForEntity(uri,predictionModels,List.class);
     }
 

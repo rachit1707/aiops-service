@@ -59,7 +59,7 @@ public class PerformDataModellingServiceImpl implements PerformDataModellingServ
                             .workgroup(auditModel.getWorkgroup())
                             .errorCode(auditModel.getErrorCode())
                             .status(auditModel.getStatus())
-                            .recoveryActions(getRecoveryActionFromWorkgroup(auditModel.getWorkgroup()))
+                            .recoveryActions(getRecoveryActionFromWorkgroup(getRcaForBan(auditModel.getBan()),auditModel.getWorkgroup()))
                             .createdAt(auditModel.getLoggedAt())
                             .updatedAt(Instant.now())
                             .build()
@@ -73,9 +73,16 @@ public class PerformDataModellingServiceImpl implements PerformDataModellingServ
         return RcaUtil.getRcaForBan(ban);
     }
 
-    private String getRecoveryActionFromWorkgroup(String workgroup) {
+    private String getRecoveryActionFromWorkgroup(String rca,String workgroup) {
         MLPredictionUtil.initPredictionData();
-        return MLPredictionUtil.getPredictionByWorkgroup(workgroup);
-
+        if("orderWorkgroup".equals(workgroup) && rca.toLowerCase().contains("phone")){
+            return "telephoneFix";
+        }else if("orderWorkgroup".equals(workgroup) && rca.toLowerCase().contains("email")){
+            return "emailFix";
+        }else if("orderWorkgroup".equals(workgroup) && rca.toLowerCase().contains("due date")){
+            return "dueDateFix";
+        }else{
+            return MLPredictionUtil.getPredictionByWorkgroup(workgroup);
+        }
     }
 }

@@ -11,6 +11,7 @@ orderWorkgroup Failed to process order
 orderWorkgroup multiple orders failed
 orderWorkgroup error-1001
 orderWorkgroup order not found
+orderWorkgroup Telephone number missing order failing
 orderCancelWorkgroup wrong order please cancel
 orderCancelWorkgroup order jeopardy
 orderCancelWorkgroup order jeopardy cancel order

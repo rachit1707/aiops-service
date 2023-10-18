@@ -1,27 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_16m3los" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.15.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_16m3los" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.12.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
   <bpmn:process id="Camunda_Workflow_Generator" name="Camunda Workflow Generator" isExecutable="true">
     <bpmn:extensionElements />
     <bpmn:startEvent id="StartEvent_1" name="start">
-      <bpmn:outgoing>Flow_1os2hyu</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1gpqaz0</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="Flow_1os2hyu" sourceRef="StartEvent_1" targetRef="Activity_0cpqm0g" />
-    <bpmn:sequenceFlow id="Flow_0ky7nx3" sourceRef="Activity_0cpqm0g" targetRef="Activity_0bll735" />
     <bpmn:sequenceFlow id="Flow_0pne61z" sourceRef="Activity_0bll735" targetRef="Activity_0cqcwcw" />
     <bpmn:endEvent id="Event_1pzqk3u" name="end">
       <bpmn:incoming>Flow_1gn3adj</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_0dyfnj9" sourceRef="Activity_0cqcwcw" targetRef="Activity_1ebsagd" />
-    <bpmn:userTask id="Activity_0cpqm0g" name="Step to create workflow" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:formRef="service_desk_task" camunda:formRefBinding="latest">
-      <bpmn:extensionElements>
-        <camunda:executionListener expression="${execution.setVariable(&#34;topic&#34;,&#34;account &#34;)}" event="start" />
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_1os2hyu</bpmn:incoming>
-      <bpmn:outgoing>Flow_0ky7nx3</bpmn:outgoing>
-    </bpmn:userTask>
     <bpmn:scriptTask id="Activity_0bll735" name="Call ChatGPT for task type and name" camunda:asyncBefore="true" camunda:asyncAfter="true" scriptFormat="groovy">
       <bpmn:extensionElements />
-      <bpmn:incoming>Flow_0ky7nx3</bpmn:incoming>
+      <bpmn:incoming>Flow_1eb1zoz</bpmn:incoming>
       <bpmn:outgoing>Flow_0pne61z</bpmn:outgoing>
       <bpmn:script>import java.net.Proxy.Type
 import groovy.json.JsonSlurper
@@ -79,7 +69,12 @@ println("====Dummy Data========")
                 <camunda:entry key="accept">'application/json'</camunda:entry>
               </camunda:map>
             </camunda:inputParameter>
-            <camunda:inputParameter name="payload">${chatGPTResponse}</camunda:inputParameter>
+            <camunda:inputParameter name="payload">
+              <camunda:map>
+                <camunda:entry key="chatGPTResponse">${chatGPTResponse}</camunda:entry>
+                <camunda:entry key="ticket_id">${ticket_id}</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
             <camunda:outputParameter name="response">${response}</camunda:outputParameter>
           </camunda:inputOutput>
           <camunda:connectorId>http-connector</camunda:connectorId>
@@ -89,17 +84,22 @@ println("====Dummy Data========")
         </camunda:executionListener>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0pne61z</bpmn:incoming>
-      <bpmn:outgoing>Flow_0dyfnj9</bpmn:outgoing>
+      <bpmn:incoming>Flow_0kmgfe6</bpmn:incoming>
+      <bpmn:outgoing>Flow_1gn3adj</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_1gn3adj" sourceRef="Activity_1ebsagd" targetRef="Event_1pzqk3u" />
+    <bpmn:sequenceFlow id="Flow_1gn3adj" sourceRef="Activity_0cqcwcw" targetRef="Event_1pzqk3u" />
     <bpmn:callActivity id="Activity_1ebsagd" name="Create Jira Ticket" camunda:asyncBefore="true" camunda:asyncAfter="true" calledElement="cloud-jira-connector">
       <bpmn:extensionElements>
         <camunda:in local="true" variables="all" />
         <camunda:inputOutput>
           <camunda:inputParameter name="acceptance_criteria">Implementation of camunda workflow</camunda:inputParameter>
           <camunda:inputParameter name="assignee">6391f104a593cb822e99118b</camunda:inputParameter>
-          <camunda:inputParameter name="ticket_description">${gptQuery}</camunda:inputParameter>
-          <camunda:inputParameter name="ticket_summary">Create Ticket for the Requirement</camunda:inputParameter>
+          <camunda:inputParameter name="ticket_description">can you please  identify task name  and task type for below steps in camunda  
+1. check user account expiry status
+2. take approval from manager to extend the account expiry
+3. if account expired update account expiry flag and account expiry date in database
+4. notify User about status of account</camunda:inputParameter>
+          <camunda:inputParameter name="ticket_summary">Test Summary</camunda:inputParameter>
           <camunda:inputParameter name="priority">Medium</camunda:inputParameter>
           <camunda:inputParameter name="jira_ip">https://gno-poc.atlassian.net/rest/api/3/issue</camunda:inputParameter>
           <camunda:inputParameter name="jira_authorizarion">Basic dHlwZXRvbWFoYW50ZXNoQGdtYWlsLmNvbTpBVEFUVDN4RmZHRjB4U3I0YXVOdmN2QXRDYk5Xa3NPem1PcDFGS25kaWNEVUtkR3FQM3FDaVVUZF9TTFAzYVJHWlBaWHRnZHhJZFhDMm05MVE3ZjdDMzlXTHRZeDJHam5oMDNUcEZlOXdNSURqd1lrbDVYMm5nckZrdnRrT1p6TkJ3Qm1HdjEzWWpCaTVLaTlxZ1hCbnJ1ajk4MnZHSjNnTDN0RU15dWJ2REFYMC1CQ0RXUEl6Vm89MzEwREJFMzg=</camunda:inputParameter>
@@ -107,59 +107,89 @@ println("====Dummy Data========")
           <camunda:inputParameter name="proxy_port">8080</camunda:inputParameter>
           <camunda:inputParameter name="reporter">6391f104a593cb822e99118b</camunda:inputParameter>
         </camunda:inputOutput>
+        <camunda:out variables="all" />
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0dyfnj9</bpmn:incoming>
-      <bpmn:outgoing>Flow_1gn3adj</bpmn:outgoing>
+      <bpmn:incoming>Flow_17e2tg4</bpmn:incoming>
+      <bpmn:outgoing>Flow_0lxgpp5</bpmn:outgoing>
     </bpmn:callActivity>
+    <bpmn:sequenceFlow id="Flow_0lxgpp5" sourceRef="Activity_1ebsagd" targetRef="Gateway_0di26bh" />
+    <bpmn:sequenceFlow id="Flow_1gpqaz0" sourceRef="StartEvent_1" targetRef="Activity_1ehj15o" />
+    <bpmn:exclusiveGateway id="Gateway_0di26bh" default="Flow_0kmgfe6">
+      <bpmn:incoming>Flow_0lxgpp5</bpmn:incoming>
+      <bpmn:outgoing>Flow_1eb1zoz</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0kmgfe6</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1eb1zoz" sourceRef="Gateway_0di26bh" targetRef="Activity_0bll735">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isWorkflowRequired}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0kmgfe6" sourceRef="Gateway_0di26bh" targetRef="Activity_0cqcwcw" />
+    <bpmn:sequenceFlow id="Flow_17e2tg4" sourceRef="Activity_1ehj15o" targetRef="Activity_1ebsagd" />
+    <bpmn:task id="Activity_1ehj15o" name="Test Task">
+      <bpmn:incoming>Flow_1gpqaz0</bpmn:incoming>
+      <bpmn:outgoing>Flow_17e2tg4</bpmn:outgoing>
+    </bpmn:task>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Camunda_Workflow_Generator">
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
-        <dc:Bounds x="179" y="102" width="36" height="36" />
+        <dc:Bounds x="152" y="92" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="186" y="145" width="23" height="14" />
+          <dc:Bounds x="159" y="135" width="23" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1pzqk3u_di" bpmnElement="Event_1pzqk3u">
-        <dc:Bounds x="902" y="102" width="36" height="36" />
+        <dc:Bounds x="922" y="92" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="911" y="145" width="19" height="14" />
+          <dc:Bounds x="930" y="68" width="19" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0r0cucp_di" bpmnElement="Activity_0cpqm0g">
-        <dc:Bounds x="270" y="80" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1vfti55_di" bpmnElement="Activity_0bll735">
-        <dc:Bounds x="440" y="80" width="100" height="80" />
+        <dc:Bounds x="620" y="70" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_06wwp8n_di" bpmnElement="Activity_0cqcwcw">
-        <dc:Bounds x="580" y="80" width="100" height="80" />
+        <dc:Bounds x="760" y="70" width="100" height="80" />
         <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0di26bh_di" bpmnElement="Gateway_0di26bh" isMarkerVisible="true">
+        <dc:Bounds x="505" y="85" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1lvfeu0_di" bpmnElement="Activity_1ebsagd">
-        <dc:Bounds x="730" y="80" width="100" height="80" />
+        <dc:Bounds x="350" y="70" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_1os2hyu_di" bpmnElement="Flow_1os2hyu">
-        <di:waypoint x="215" y="120" />
-        <di:waypoint x="270" y="120" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0ky7nx3_di" bpmnElement="Flow_0ky7nx3">
-        <di:waypoint x="370" y="120" />
-        <di:waypoint x="440" y="120" />
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_1ehj15o_di" bpmnElement="Activity_1ehj15o">
+        <dc:Bounds x="220" y="70" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0pne61z_di" bpmnElement="Flow_0pne61z">
-        <di:waypoint x="540" y="120" />
-        <di:waypoint x="580" y="120" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0dyfnj9_di" bpmnElement="Flow_0dyfnj9">
-        <di:waypoint x="680" y="120" />
-        <di:waypoint x="730" y="120" />
+        <di:waypoint x="720" y="110" />
+        <di:waypoint x="760" y="110" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1gn3adj_di" bpmnElement="Flow_1gn3adj">
-        <di:waypoint x="830" y="120" />
-        <di:waypoint x="902" y="120" />
+        <di:waypoint x="860" y="110" />
+        <di:waypoint x="922" y="110" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0lxgpp5_di" bpmnElement="Flow_0lxgpp5">
+        <di:waypoint x="450" y="110" />
+        <di:waypoint x="505" y="110" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1gpqaz0_di" bpmnElement="Flow_1gpqaz0">
+        <di:waypoint x="188" y="110" />
+        <di:waypoint x="220" y="110" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1eb1zoz_di" bpmnElement="Flow_1eb1zoz">
+        <di:waypoint x="555" y="110" />
+        <di:waypoint x="620" y="110" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0kmgfe6_di" bpmnElement="Flow_0kmgfe6">
+        <di:waypoint x="530" y="85" />
+        <di:waypoint x="530" y="40" />
+        <di:waypoint x="810" y="40" />
+        <di:waypoint x="810" y="70" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17e2tg4_di" bpmnElement="Flow_17e2tg4">
+        <di:waypoint x="320" y="110" />
+        <di:waypoint x="350" y="110" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

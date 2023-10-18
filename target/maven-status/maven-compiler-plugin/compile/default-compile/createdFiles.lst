@@ -10,6 +10,7 @@ com\vois\poc\model\PredictionModel$PredictionModelBuilder.class
 com\vois\poc\service\impl\UpdateWorkgroupServiceImpl.class
 com\vois\poc\model\PatchDto.class
 com\vois\poc\service\PrepareNLPService.class
+com\vois\poc\util\RcaUtil.class
 com\vois\poc\service\UpdateWorkgroupService.class
 com\vois\poc\service\impl\ReadCsvDataServiceImpl.class
 com\vois\poc\process\PerformRecovery.class

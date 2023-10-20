@@ -76,7 +76,7 @@
       </bpmn:serviceTask>
       <bpmn:sequenceFlow id="Flow_0etswy9" sourceRef="updatePredicationDataWithDeci" targetRef="Event_0ywu9he" />
       <bpmn:sequenceFlow id="Flow_1ielwvf" sourceRef="Activity_1d7sa7i" targetRef="sendMail" />
-      <bpmn:callActivity id="Activity_1d7sa7i" name="workflow generator" calledElement="Camunda_Workflow_Generator">
+      <bpmn:callActivity id="Activity_1d7sa7i" name="workflow generator" camunda:asyncBefore="true" calledElement="Camunda_Workflow_Generator">
         <bpmn:extensionElements>
           <camunda:in variables="all" />
         </bpmn:extensionElements>

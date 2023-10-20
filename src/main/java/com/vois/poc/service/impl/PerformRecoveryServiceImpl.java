@@ -48,7 +48,7 @@ public class PerformRecoveryServiceImpl implements PerformRecoveryService {
                 PredictionModel.class
         );
         log.info("Updated status for prediction response {}",predictionResponse.getBody());
-        Thread.sleep(10000);
+        Thread.sleep(3000);
         //update the ticket status in audit table
 
     }

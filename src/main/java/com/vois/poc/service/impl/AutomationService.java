@@ -146,7 +146,7 @@ public class AutomationService {
     public String createBPMN(String chatGPTResponse,String ticketId) throws IOException, UnirestException {
         String instruction = null;
         int taskAdded = 0;
-        System.out.println("=========chatGPTResponse==" + chatGPTResponse);
+        System.out.println("=========chatGPTResponse==" + chatGPTResponse +"Jira Ticket Id===="+ticketId);
         if (chatGPTResponse.isEmpty() || (chatGPTResponse == null) || chatGPTResponse.isBlank()) {
             instruction = "Camunda is a popular open-source workflow and decision automation platform that supports various task types and names. Here are some suggestions for the task types and names for the given steps:\r\n"
                     + "\r\n" + "Task Type: Service Task\r\n" + "Task Name: Check User Account Expiry Status\r\n"
@@ -371,13 +371,14 @@ public class AutomationService {
         // validate and write model to file
         Bpmn.validateModel(modelInstance);
         File file = File.createTempFile(workflow.getWorkflowName(), ".bpmn", new File(
-                "D:\\Poc\\aiops-service\\src\\main\\resources"));
+                "C:\\Users\\SharmaR59\\Documents\\BPMN"));
         Bpmn.writeModelToFile(file, modelInstance);
         System.out.println("=========modelInstance" + file.getPath());
         if(!ticketId.isBlank()||!ticketId.isEmpty()){
             JiraUtility jiraUtility=new JiraUtility();
             jiraUtility.uploadFilesToJira(file.getPath(),ticketId);
         }
+        System.out.println("=========modelInstance" + file.getPath());
         return file.getPath();
 
     }

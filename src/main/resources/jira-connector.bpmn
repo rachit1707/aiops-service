@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0xifhl4" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.15.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0xifhl4" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.12.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
   <bpmn:process id="cloud-jira-connector" name="cloud-jira-connector" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:outgoing>Flow_0sull9j</bpmn:outgoing>
@@ -7,7 +7,7 @@
     <bpmn:endEvent id="Event_0t9zd16">
       <bpmn:incoming>Flow_0m05h2e</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:scriptTask id="Activity_0lf6lkp" name="Create Jira Ticket" scriptFormat="groovy">
+    <bpmn:scriptTask id="Activity_0lf6lkp" name="Create Jira Ticket" camunda:asyncBefore="true" camunda:asyncAfter="true" scriptFormat="groovy">
       <bpmn:incoming>Flow_0sull9j</bpmn:incoming>
       <bpmn:outgoing>Flow_0m05h2e</bpmn:outgoing>
       <bpmn:script>import java.net.Proxy.Type
@@ -43,7 +43,7 @@ def message = '''{
         {
           "content": [
             {
-              "text": "'''+ticket_description+'''",
+              "text": "'''+ticket_description.replaceAll("\n", "\\\\n")+'''",
               "type": "text"
             }
           ],
@@ -102,27 +102,28 @@ response = post.getInputStream().getText()
 
 execution.setVariable('response', response)
 execution.setVariable('respons_code', postRC)
-println('Jira Ticket Creation Status======='+postRC)
+//println('Jira Ticket Creation Status======='+postRC)
+println("Jira Response====="+response)
 def jsonSlurper = new JsonSlurper()
-//def response_json = jsonSlurper.parseText(response)
-//ticket_id = response_json["key"]
+def response_json = jsonSlurper.parseText(response)
+ticket_id = response_json.key
 
-//execution.setVariable("ticket_id", ticket_id)</bpmn:script>
+execution.setVariable("ticket_id", ticket_id)</bpmn:script>
     </bpmn:scriptTask>
     <bpmn:sequenceFlow id="Flow_0sull9j" sourceRef="StartEvent_1" targetRef="Activity_0lf6lkp" />
     <bpmn:sequenceFlow id="Flow_0m05h2e" sourceRef="Activity_0lf6lkp" targetRef="Event_0t9zd16" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="cloud-jira-connector">
-      <bpmndi:BPMNShape id="Activity_18xqupc_di" bpmnElement="Activity_0lf6lkp">
-        <dc:Bounds x="290" y="77" width="100" height="80" />
-        <bpmndi:BPMNLabel />
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="172" y="99" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0t9zd16_di" bpmnElement="Event_0t9zd16">
         <dc:Bounds x="462" y="99" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
-        <dc:Bounds x="172" y="99" width="36" height="36" />
+      <bpmndi:BPMNShape id="Activity_18xqupc_di" bpmnElement="Activity_0lf6lkp">
+        <dc:Bounds x="290" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0sull9j_di" bpmnElement="Flow_0sull9j">
         <di:waypoint x="208" y="117" />

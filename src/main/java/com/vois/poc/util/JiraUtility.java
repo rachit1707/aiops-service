@@ -19,11 +19,11 @@ public class JiraUtility {
     	HttpResponse<JsonNode> response = Unirest.post(requestURL)
     			.header("Accept", "application/json")
     			.header("Authorization", authorization)
-    			//.header("X-Atlassian-Token", "no-check")
+    			.header("X-Atlassian-Token", "no-check")
     			.field("file", file)
     			.asJson();
     	
-    	return response;    	
+    	return response;
     }
     
 
@@ -32,7 +32,7 @@ public class JiraUtility {
     public void uploadFilesToJira(String filePath,String ticketId) throws UnirestException {
         File uploadFile = new File(filePath);
         String requestURL = "https://gno-poc.atlassian.net/rest/api/3/issue/"+ticketId+"/attachments";
-        String proxyIP = null;
+        String proxyIP = "voisproxy.voisindiaproxy.internal.vodafone.com";
         int proxyPort = 8080;
         String authorization = "Basic dHlwZXRvbWFoYW50ZXNoQGdtYWlsLmNvbTpBVEFUVDN4RmZHRjB4U3I0YXVOdmN2QXRDYk5Xa3NPem1PcDFGS25kaWNEVUtkR3FQM3FDaVVUZF9TTFAzYVJHWlBaWHRnZHhJZFhDMm05MVE3ZjdDMzlXTHRZeDJHam5oMDNUcEZlOXdNSURqd1lrbDVYMm5nckZrdnRrT1p6TkJ3Qm1HdjEzWWpCaTVLaTlxZ1hCbnJ1ajk4MnZHSjNnTDN0RU15dWJ2REFYMC1CQ0RXUEl6Vm89MzEwREJFMzg=";
         
@@ -44,5 +44,10 @@ public class JiraUtility {
         else
         	System.out.println("Error in file attachment to jira!!!, Respose:"+response.getBody());
     }
+
+//    public static void main(String args[]) throws UnirestException {
+//        JiraUtility ju = new JiraUtility();
+//        ju.uploadFilesToJira("c:\\Users\\SharmaR59\\Documents\\BPMN\\Automated_BPMN_4.54448198758683516436653824103334411.bpmn", "GNO-88");
+//    }
 
 }

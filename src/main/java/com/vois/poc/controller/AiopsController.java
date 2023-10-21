@@ -27,6 +27,14 @@ public class AiopsController {
         service.startProcessInstanceByKey(processName);
     }
 
+    @GetMapping("/bulkRunProcess")
+    public void bulkProcessExecution(){
+        service.startProcessInstanceByKey("nlp-model");
+        service.startProcessInstanceByKey("csv-processor");
+        service.startProcessInstanceByKey("perform-modelling");
+        service.startProcessInstanceByKey("main-process");
+    }
+
     @GetMapping("/workgroup")
     public ResponseEntity<String> getWorkgroup(@RequestBody String desc) throws IOException {
         File file = ResourceUtils.getFile("src/main/resources/nlp-model/en-trained-model.bin");

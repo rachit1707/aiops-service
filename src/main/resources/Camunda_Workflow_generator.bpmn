@@ -20,7 +20,7 @@ import groovy.json.JsonSlurper
 
 Proxy proxy = new Proxy(Type.HTTP, new InetSocketAddress("voisproxy.voisindiaproxy.internal.vodafone.com", 8080))
 
-def post = new URL("https://api.openai.com/v1/chat/completions?api-version=2023-03-15-preview").openConnection(proxy);
+def post = new URL("https://api.openai.com/v1/chat/completions?api-version=2023-03-15-preview").openConnection();
 def query="can you please  identify task name  and task type for below steps in camunda\\n"+ workflowSteps.replaceAll("\n", "\\\\n");
 println("RestCall Code:"+query);
 def message = '''{
@@ -76,11 +76,11 @@ println("====Dummy Data========")
           <camunda:inputParameter name="acceptance_criteria">Implementation of camunda workflow</camunda:inputParameter>
           <camunda:inputParameter name="assignee">6391f104a593cb822e99118b</camunda:inputParameter>
           <camunda:inputParameter name="ticket_description">${workflowSteps}</camunda:inputParameter>
-          <camunda:inputParameter name="ticket_summary">${predictedData.get("description")}</camunda:inputParameter>
+          <camunda:inputParameter name="ticket_summary">${predictedData.get("id")}  - ${predictedData.get("description")}</camunda:inputParameter>
           <camunda:inputParameter name="priority">Medium</camunda:inputParameter>
           <camunda:inputParameter name="jira_ip">https://gno-poc.atlassian.net/rest/api/3/issue</camunda:inputParameter>
           <camunda:inputParameter name="jira_authorizarion">Basic dHlwZXRvbWFoYW50ZXNoQGdtYWlsLmNvbTpBVEFUVDN4RmZHRjB4U3I0YXVOdmN2QXRDYk5Xa3NPem1PcDFGS25kaWNEVUtkR3FQM3FDaVVUZF9TTFAzYVJHWlBaWHRnZHhJZFhDMm05MVE3ZjdDMzlXTHRZeDJHam5oMDNUcEZlOXdNSURqd1lrbDVYMm5nckZrdnRrT1p6TkJ3Qm1HdjEzWWpCaTVLaTlxZ1hCbnJ1ajk4MnZHSjNnTDN0RU15dWJ2REFYMC1CQ0RXUEl6Vm89MzEwREJFMzg=</camunda:inputParameter>
-          <camunda:inputParameter name="proxy_ip">voisproxy.voisindiaproxy.internal.vodafone.com</camunda:inputParameter>
+          <camunda:inputParameter name="proxy_ip" />
           <camunda:inputParameter name="proxy_port">8080</camunda:inputParameter>
           <camunda:inputParameter name="reporter">6391f104a593cb822e99118b</camunda:inputParameter>
         </camunda:inputOutput>

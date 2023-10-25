@@ -30,11 +30,11 @@ public class AiopsController {
     @GetMapping("/bulkRunProcess")
     public void bulkProcessExecution() throws InterruptedException {
         service.startProcessInstanceByKey("nlp-model");
-        Thread.sleep(500);
+        Thread.sleep(1000);
         service.startProcessInstanceByKey("csv-processor");
-        Thread.sleep(500);
+        Thread.sleep(1000);
         service.startProcessInstanceByKey("perform-modelling");
-        Thread.sleep(500);
+        Thread.sleep(1000);
         service.startProcessInstanceByKey("main-process");
     }
 

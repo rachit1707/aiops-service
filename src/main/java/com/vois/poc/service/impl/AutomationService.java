@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.vois.poc.model.Task;
@@ -143,20 +145,21 @@ public class AutomationService {
     /*
      * @info here we parse text with task name and type and map it to workflow map
      */
-    public String createBPMN(String chatGPTResponse,String ticketId) throws IOException, UnirestException {
+    public String createBPMN(String chatGPTResponse,String ticketId,String isWorkflowRequired) throws IOException, UnirestException {
         String instruction = null;
         int taskAdded = 0;
         System.out.println("=========chatGPTResponse==" + chatGPTResponse +"Jira Ticket Id===="+ticketId);
-        if (chatGPTResponse.isEmpty() || (chatGPTResponse == null) || chatGPTResponse.isBlank()) {
+        if ((chatGPTResponse.isEmpty() || (chatGPTResponse == null) || chatGPTResponse.isBlank() )&& isWorkflowRequired.equals("true") ) {
+            System.out.println("====Received chat GPT response as Null/blank===== ");
             instruction = "Camunda is a popular open-source workflow and decision automation platform that supports various task types and names. Here are some suggestions for the task types and names for the given steps:\r\n"
                     + "\r\n" + "Task Type: Service Task\r\n" + "Task Name: Check User Account Expiry Status\r\n"
                     + "\r\n" + "Task Type: User Task\r\n"
                     + "Task Name: Request Manager Approval for Account Extension\r\n" + "\r\n"
-                    + "Task Type: Service Task\r\n" + "Task Name: Update Account Expiry in Database\r\n" + "\r\n"
+                    + "Task Type: Service Task (or Script Task)\r\n" + "Task Name: Update Account Expiry in Database\r\n" + "\r\n"
                     + "Task Type: Service Task\r\n" + "Task Name: Notify User about Account Status\r\n" + "\r\n"
                     + "These task types and names can be customized according to your specific Camunda implementation and business requirements.";
-        } else {
-
+        } else if(isWorkflowRequired.equals("true")) {
+            System.out.println("====Received chat GPT response===== ");
             ObjectMapper mapper = new ObjectMapper();
             Map<String, Object> map = mapper.readValue(chatGPTResponse, Map.class);
             System.out.println("Create BPMN " + map.get("choices"));
@@ -170,9 +173,10 @@ public class AutomationService {
         List<Task> taskList = new ArrayList<Task>();
         Task startEvent = new Task();
         startEvent.setId("start");
-        startEvent.setType("Start");
+        startEvent.setType("START");
         taskList.add(startEvent);
         Workflow workflow = new Workflow();
+        if (isWorkflowRequired.equals("true")){
         Iterator<String> instructionSplit = instruction.stripTrailing().lines().iterator();
         Task task = new Task();
         while (instructionSplit.hasNext()) {
@@ -192,7 +196,7 @@ public class AutomationService {
                     else if (taskDetails.toUpperCase().contains("TASK TYPE:")) {
                         String[] taskType = taskDetails.stripLeading().split(":");
                         if (!taskType[0].isBlank()) {
-                            task.setType(taskType[1].trim().replaceAll("[^A-Za-z0-9]", ""));
+                            task.setType(getTaskType(taskType[1].trim().replaceAll("[^A-Za-z0-9]", "").toUpperCase()));
                             taskAdded++;
                         }
                     }
@@ -209,7 +213,7 @@ public class AutomationService {
                 String[] taskType = line.stripLeading().split(":");
                 System.out.println("-==================" + taskType);
                 if (!taskType[0].isBlank()) {
-                    task.setType(taskType[1].trim().replaceAll("[^A-Za-z0-9]", ""));
+                    task.setType(getTaskType(taskType[1].trim().replaceAll("[^A-Za-z0-9]", "").toUpperCase()));
                     taskAdded++;
                 }
             }
@@ -219,6 +223,7 @@ public class AutomationService {
                 taskAdded = 0;
                 task = new Task();
             }
+        }
         }
         Task endEvent = new Task();
         endEvent.setId("end");
@@ -269,8 +274,8 @@ public class AutomationService {
         List<FlowNode> node = new ArrayList<FlowNode>(2);
         // Loop to design each element of workflow
         bpmnElement.forEach(task -> {
-            String elementtype = task.getType().toUpperCase();
-            switch (elementtype) {
+            String elementType = task.getType();
+            switch (elementType) {
                 case "START":
                     StartEvent startEvent = createElement(process, task.getId(), StartEvent.class, plane,
                             elementDimension.get("x"), elementDimension.get("y"), elementDimension.get("height"),
@@ -460,5 +465,20 @@ public class AutomationService {
         return sequenceFlow;
     }
 
+   public String getTaskType(String taskType){
+       String matchedSubstring=null;
+           String pattern = ".*(USERTASK|SERVICETASK|SCRIPTTASK|BUSINESSRULETASK|SENDTASK|RECEIVETASK|CALLACTIVITY|SUBPROCESS).*";
+           Pattern p = Pattern.compile(pattern);
+           Matcher m = p.matcher(taskType);
+
+
+
+           if (m.matches()) {
+               matchedSubstring= m.group(1);
+               System.out.println("Matched: " + matchedSubstring);
+           }
+
+       return matchedSubstring;
+   }
 }
 

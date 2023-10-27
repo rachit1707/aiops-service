@@ -228,7 +228,7 @@ public class AutomationService {
             Task userTask = new Task();
             startEvent.setId("Manual task solution");
             startEvent.setType("USERTASK");
-            taskList.add(startEvent);
+            taskList.add(userTask);
         }
         Task endEvent = new Task();
         endEvent.setId("end");

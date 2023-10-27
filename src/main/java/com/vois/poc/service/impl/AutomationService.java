@@ -224,10 +224,15 @@ public class AutomationService {
                 task = new Task();
             }
         }
+        }else {
+            Task userTask = new Task();
+            startEvent.setId("Manual task solution");
+            startEvent.setType("USERTASK");
+            taskList.add(startEvent);
         }
         Task endEvent = new Task();
         endEvent.setId("end");
-        endEvent.setType("End");
+        endEvent.setType("END");
         taskList.add(endEvent);
         System.out.println("-==================" + taskList.toString());
         workflow.setWorkflowName("Automated_BPMN_" + Math.random() * 10);

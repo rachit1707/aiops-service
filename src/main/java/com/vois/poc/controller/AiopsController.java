@@ -12,6 +12,7 @@ import java.io.*;
 
 @RestController
 @RequestMapping("/aiops")
+@CrossOrigin
 public class AiopsController {
 
     private final RuntimeService service;

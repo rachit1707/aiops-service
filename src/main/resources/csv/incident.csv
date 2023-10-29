@@ -1,20 +1,20 @@
 id,ban,description,type,errorCode,status,workgroup,loggedAt
-INC000078031708,12222,FinX access,System Generated,,new,,2023-08-08T19:38:41Z
-INC000077961798,455666,Unable to access the FinX UAT,System Generated,,new,,2023-08-08T19:38:41Z
+INC000078031708,12222,FinX access,Manual,,new,,2023-08-08T19:38:41Z
+INC000077961798,455666,Unable to access the FinX UAT,Manual,,new,,2023-08-08T19:38:41Z
 INC000077194149,123456,Production Deployment 18th August,Manual,,new,,2023-08-08T19:38:41Z
-INC000077112522,1222112,FIN-X Performance,System Generated,,new,,2023-08-08T19:38:41Z
-INC000075512438,5465665,FinX Log-in Issue,System Generated,,new,,2023-08-08T19:38:41Z
-INC000074857595,233444,FinX - Production Deployment Scheduled for 14th July 2023,System Generated,,new,,2023-08-08T19:38:41Z
-INC000078031201,45321,My order status is failed,System Generated,error-1001,new,,2023-08-08T19:38:41Z
+INC000077112522,1222112,FIN-X Performance,Manual,,new,,2023-08-08T19:38:41Z
+INC000075512438,5465665,FinX Log-in Issue,Manual,,new,,2023-08-08T19:38:41Z
+INC000074857595,233444,FinX - Production Deployment Scheduled for 14th July 2023,Manual,,new,,2023-08-08T19:38:41Z
+INC000078031201,45321,My order status is failed,Manual,error-1001,new,,2023-08-08T19:38:41Z
 INC000078031203,486232122,No signal in my area,Manual,error-1002,new,,2023-08-08T19:38:41Z
-INC000078031204,45678,No price displayed on the product,System Generated,error-1003,new,,2023-08-08T19:38:41Z
+INC000078031204,45678,No price displayed on the product,Manual,error-1003,new,,2023-08-08T19:38:41Z
 INC000078031205,332304787,Product catalog is missing,Manual,error-1004,new,,2023-08-08T19:38:41Z
-INC000078031206,PPB03733290,no signal,System Generated,error-1005,new,,2023-08-08T19:38:41Z
-INC000078031207,PRB0003764,Order is pending because the due date us passed,System Generated,,new,,2023-08-08T19:38:41Z
-INC000078031208,437067877,Unable to calculate due date for the order,System Generated,E1500,new,,2023-08-08T19:38:41Z
+INC000078031206,PPB03733290,no signal,Manual,error-1005,new,,2023-08-08T19:38:41Z
+INC000078031207,PRB0003764,Order is pending because the due date us passed,Manual,,new,,2023-08-08T19:38:41Z
+INC000078031208,437067877,Unable to calculate due date for the order,Manual,E1500,new,,2023-08-08T19:38:41Z
 INC000078031209,211989057,Order failed to process,Manual,E1000,new,,2023-08-08T19:38:41Z
-INC000078031210,490279977,Unable to process order,System Generated,E1009,new,,2023-08-08T19:38:41Z
-INC000078031211,490279978,order jeopardy please cancel order,System Generated,E1008,new,,2023-08-08T19:38:41Z
-INC000078031213,211989057,user request to cancel order,System Generated,E1008,new,,2023-08-08T19:38:41Z
+INC000078031210,490279977,Unable to process order,Manual,E1009,new,,2023-08-08T19:38:41Z
+INC000078031211,490279978,order jeopardy please cancel order,Manual,E1008,new,,2023-08-08T19:38:41Z
+INC000078031213,211989057,user request to cancel order,Manual,E1008,new,,2023-08-08T19:38:41Z
 INC000078031214,211989057,request to change role for user,Manual,E1007,new,,2023-08-08T19:38:41Z
 INC000078031215,211989057,Role assigned to user is incorrect,Manual,E1007,new,,2023-08-08T19:38:41Z

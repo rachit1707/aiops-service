@@ -1,11 +1,15 @@
 package com.vois.poc.service.impl;
 
 import com.vois.poc.model.AuditModel;
+import com.vois.poc.model.SyntheticModel;
 import com.vois.poc.service.UpdateWorkgroupService;
+import com.vois.poc.util.SyntheticUtil;
 import lombok.extern.slf4j.Slf4j;
 import opennlp.tools.doccat.DoccatModel;
 import opennlp.tools.doccat.DocumentCategorizerME;
 import java.time.Instant;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.client.RestTemplate;
@@ -18,6 +22,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -49,14 +54,14 @@ public class UpdateWorkgroupServiceImpl implements UpdateWorkgroupService {
     }
 
     @Override
-    public void updateAuditServiceWithLatestData(List<String[]> csvData) throws URISyntaxException {
+    public void updateAuditServiceWithLatestData(List<String[]> csvData) throws URISyntaxException, IOException {
         //update audit service with the data
         List<AuditModel> auditModel = prepareAuditModelFromCsvData(csvData);
         URI uri = new URI("http://localhost:8081/audit");
         restTemplate.postForEntity(uri,auditModel,List.class);
     }
 
-    private List<AuditModel> prepareAuditModelFromCsvData(List<String[]> csvData) {
+    private List<AuditModel> prepareAuditModelFromCsvData(List<String[]> csvData) throws IOException {
         //prepare Audit model
         List<AuditModel> auditModelList = new ArrayList<>();
         for(int i=1;i<csvData.size();i++) {
@@ -72,6 +77,37 @@ public class UpdateWorkgroupServiceImpl implements UpdateWorkgroupService {
                     .createdAt(Instant.now())
                     .updatedAt(Instant.now()).build());
         }
+        //we can fetch the synthetic data here and add it to prediction db
+        createSyntheticDataList();
+        fetchAndUpdatedAuditListWithSyntheticData(auditModelList);
         return auditModelList;
+    }
+
+    private void fetchAndUpdatedAuditListWithSyntheticData(List<AuditModel> auditModelList) throws IOException {
+
+        ResponseEntity<SyntheticModel[]> syntheticModelList = restTemplate.getForEntity("http://localhost:8081/synthetic",SyntheticModel[].class);
+        if(syntheticModelList.getStatusCode().is2xxSuccessful() && Objects.nonNull(syntheticModelList.getBody())) {
+            for (SyntheticModel syntheticModel : syntheticModelList.getBody()) {
+                auditModelList.add(
+                        AuditModel.builder()
+                                .id(syntheticModel.getId())
+                                .description(syntheticModel.getError())
+                                .errorCode(syntheticModel.getErrorCode())
+                                .type("System Generated")
+                                .status("Open")
+                                .workgroup(getWorkgroupByDescription(syntheticModel.getError()))
+                                .ban(syntheticModel.getBan())
+                                .loggedAt(Instant.now())
+                                .createdAt(Instant.now())
+                                .updatedAt(Instant.now())
+                                .build()
+                );
+            }
+        }
+    }
+
+    private void createSyntheticDataList() {
+        SyntheticUtil.initiateSyntheticData();
+        restTemplate.postForEntity("http://localhost:8081/synthetic", SyntheticUtil.getAllSyntheticData(),List.class);
     }
 }

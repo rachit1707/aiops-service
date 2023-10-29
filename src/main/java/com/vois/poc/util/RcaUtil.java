@@ -27,6 +27,8 @@ public class RcaUtil {
         rcaData.put("1222112","Automation Test scripts were running which led to un-availability of the resources");
         rcaData.put("5465665","User password has expired");
         rcaData.put("233444","Major fix release is provided");
+        rcaData.put("2323002","Phone number is missing");
+        rcaData.put("2323001","Product information missing in DB");
 
     }
 

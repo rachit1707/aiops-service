@@ -43,7 +43,7 @@ public class UpdatePredictionModelImpl implements UpdatePredictionService {
                         .key("agentAccepted")
                         .value(Boolean.toString(predictionModel.isAgentAccepted())).build()
         );
-        if(predictionModel.getStatus().equals("Creating Incident")){
+        if(predictionModel.getStatus().equals("Creating Workflow")){
             requestEntityStatusChange = new HttpEntity<>(
                     PatchDto.builder()
                             .op("update")

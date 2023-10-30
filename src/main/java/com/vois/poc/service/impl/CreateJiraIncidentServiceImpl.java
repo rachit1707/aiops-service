@@ -31,7 +31,7 @@ public class CreateJiraIncidentServiceImpl implements CreateJiraIncidentService 
                 PatchDto.builder()
                         .op("update")
                         .key("status")
-                        .value("Creating Incident").build()
+                        .value("Creating Workflow").build()
         );
 
         var response = restTemplate.exchange(
@@ -40,7 +40,7 @@ public class CreateJiraIncidentServiceImpl implements CreateJiraIncidentService 
                 requestEntity,
                 PredictionModel.class
         );
-        predictionModel.setStatus("Creating Incident");
+        predictionModel.setStatus("Creating Workflow");
         Thread.sleep(5000);
         if(response.getStatusCode().is2xxSuccessful()){
           return true;

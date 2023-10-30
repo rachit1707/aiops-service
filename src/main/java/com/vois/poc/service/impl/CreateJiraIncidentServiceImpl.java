@@ -41,7 +41,7 @@ public class CreateJiraIncidentServiceImpl implements CreateJiraIncidentService 
                 PredictionModel.class
         );
         predictionModel.setStatus("Creating Incident");
-        Thread.sleep(10000);
+        Thread.sleep(5000);
         if(response.getStatusCode().is2xxSuccessful()){
           return true;
         }else{

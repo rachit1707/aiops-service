@@ -10,11 +10,11 @@ INC000078031203,486232122,No signal in my area,Manual,error-1002,new,,2023-08-08
 INC000078031204,45678,No price displayed on the product,Manual,error-1003,new,,2023-08-08T19:38:41Z
 INC000078031205,332304787,Product catalog is missing,Manual,error-1004,new,,2023-08-08T19:38:41Z
 INC000078031206,PPB03733290,no signal,Manual,error-1005,new,,2023-08-08T19:38:41Z
-INC000078031207,PRB0003764,Order is pending because the due date us passed,Manual,,new,,2023-08-08T19:38:41Z
+INC000078031207,PRB0003764,Order is pending because the due date is passed,Manual,,new,,2023-08-08T19:38:41Z
 INC000078031208,437067877,Unable to calculate due date for the order,Manual,E1500,new,,2023-08-08T19:38:41Z
 INC000078031209,211989057,Order failed to process,Manual,E1000,new,,2023-08-08T19:38:41Z
 INC000078031210,490279977,Unable to process order,Manual,E1009,new,,2023-08-08T19:38:41Z
-INC000078031211,490279978,order jeopardy please cancel order,Manual,E1008,new,,2023-08-08T19:38:41Z
-INC000078031213,211989057,user request to cancel order,Manual,E1008,new,,2023-08-08T19:38:41Z
+INC000078031211,490279978,Order jeopardy please cancel order,Manual,E1008,new,,2023-08-08T19:38:41Z
+INC000078031213,211989057,User requested to cancel order,Manual,E1008,new,,2023-08-08T19:38:41Z
 INC000078031214,211989057,request to change role for user,Manual,E1007,new,,2023-08-08T19:38:41Z
 INC000078031215,211989057,Role assigned to user is incorrect,Manual,E1007,new,,2023-08-08T19:38:41Z

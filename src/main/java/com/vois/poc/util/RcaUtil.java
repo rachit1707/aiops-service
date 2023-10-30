@@ -13,7 +13,7 @@ public class RcaUtil {
         log.info("..........Initiating the RCA Data......");
 
         rcaData.put("45321","Email Id is missing for the order");
-        rcaData.put("486232122","Maintanance activity in the area");
+        rcaData.put("486232122","Maintenance activity in the area");
         rcaData.put("45678","Indexing Activity was not successful which led to this issue");
         rcaData.put("332304787","Indexing Activity was not successful");
         rcaData.put("PPB03733290","Issue with the phone");
@@ -21,7 +21,7 @@ public class RcaUtil {
         rcaData.put("211989057","Please ask the agent to update the phone number for the customer");
         rcaData.put("490279977","Due Date has passed for the order");
         rcaData.put("437067877","Due Date is missing");
-        rcaData.put("12222","The role is not found in the Database please add role before providing the access");
+        rcaData.put("12222","The role is not found in the Database, please add role before providing the access");
         rcaData.put("455666","The user does not have access to the UAT");
         rcaData.put("123456","Deployment Scheduled");
         rcaData.put("1222112","Automation Test scripts were running which led to un-availability of the resources");

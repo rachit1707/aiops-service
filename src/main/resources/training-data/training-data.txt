@@ -12,6 +12,9 @@ orderWorkgroup multiple orders failed
 orderWorkgroup error-1001
 orderWorkgroup order not found
 orderWorkgroup Telephone number missing order failing
+orderWorkgroup Internal server Error
+orderWorkgroup Internal server Error: NullPointerException encountered at line 40 (phone number is null)
+orderWorkgroup NullPointerException encountered at line 40
 orderCancelWorkgroup wrong order please cancel
 orderCancelWorkgroup order jeopardy
 orderCancelWorkgroup order jeopardy cancel order

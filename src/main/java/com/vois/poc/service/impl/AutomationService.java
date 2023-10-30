@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -49,6 +50,7 @@ import org.camunda.bpm.model.bpmn.instance.di.Waypoint;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
+import org.springframework.util.ResourceUtils;
 import spinjar.com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -380,8 +382,8 @@ public class AutomationService {
         });
         // validate and write model to file
         Bpmn.validateModel(modelInstance);
-        File file = File.createTempFile(workflow.getWorkflowName(), ".bpmn", new File(
-                "C:\\Users\\SharmaR59\\Documents\\BPMN"));
+        File file = File.createTempFile(workflow.getWorkflowName(), ".bpmn",
+                        ResourceUtils.getFile("src/main/resources/BPMN"));
         Bpmn.writeModelToFile(file, modelInstance);
         System.out.println("=========modelInstance" + file.getPath());
         if(!ticketId.isBlank()||!ticketId.isEmpty()){

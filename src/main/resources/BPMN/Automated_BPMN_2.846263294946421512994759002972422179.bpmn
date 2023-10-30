@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="definitions_1aecd93e-8741-4431-8f1f-d52829f0b7c3" targetNamespace="http://camunda.org/schema/1.0/bpmn" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
+  <process id="Automated_BPMN_2.8462632949464215" isExecutable="true">
+    <startEvent id="start" name="start">
+      <outgoing>start-Manualtasksolution</outgoing>
+    </startEvent>
+    <userTask id="Manualtasksolution" name="Manual task solution">
+      <incoming>start-Manualtasksolution</incoming>
+      <outgoing>Manualtasksolution-end</outgoing>
+    </userTask>
+    <sequenceFlow id="start-Manualtasksolution" sourceRef="start" targetRef="Manualtasksolution"/>
+    <endEvent id="end" name="end">
+      <incoming>Manualtasksolution-end</incoming>
+    </endEvent>
+    <sequenceFlow id="Manualtasksolution-end" sourceRef="Manualtasksolution" targetRef="end"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_4a22fd19-5ccf-4f65-b273-127d51fb5b91">
+    <bpmndi:BPMNPlane bpmnElement="Automated_BPMN_2.8462632949464215" id="BPMNPlane_6d3981ab-1cf4-40ef-abbd-3f04f70aa767">
+      <bpmndi:BPMNShape bpmnElement="start" id="BPMNShape_df519200-ebbe-4221-9691-b88b02cd2058">
+        <dc:Bounds height="30.0" width="30.0" x="50.0" y="100.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_2956bcb9-fd61-4670-b721-2f9c3a3861d6">
+          <dc:Bounds height="30.0" width="30.0" x="50.0" y="130.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Manualtasksolution" id="BPMNShape_4021c5d7-a3ea-4fbc-86ca-66f594199074">
+        <dc:Bounds height="80.0" width="100.0" x="180.0" y="80.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_9ba469ce-6222-459f-ac9a-995216e21615">
+          <dc:Bounds height="80.0" width="100.0" x="180.0" y="160.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="start-Manualtasksolution" id="BPMNEdge_e7ff33dd-57e0-441f-863c-7e2deb4656d7">
+        <di:waypoint x="80.0" y="125.0"/>
+        <di:waypoint x="180.0" y="125.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape bpmnElement="end" id="BPMNShape_2ebf4118-0d46-4dd7-ab4f-56b49392efd7">
+        <dc:Bounds height="30.0" width="30.0" x="380.0" y="100.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_068ba9da-7831-4aa3-8879-3c716c41ad1c">
+          <dc:Bounds height="30.0" width="30.0" x="380.0" y="130.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="Manualtasksolution-end" id="BPMNEdge_9fb19fd4-5132-47d9-b4b1-3d136a2466de">
+        <di:waypoint x="280.0" y="125.0"/>
+        <di:waypoint x="380.0" y="125.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

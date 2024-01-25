@@ -14,14 +14,15 @@ import java.util.List;
 @Builder
 public class AuditModel {
     private String id;
-    private String ban;
     private String description;
-    private String type;
-    private String errorCode;
+    private String GSL;
+    private String createdDate;
     private String status;
-    private String workgroup;
-    private String recoveryUrl;
-    private Instant loggedAt;
-    private Instant createdAt;
+    private String category;
+    private String action;
+    private String ETA;
+    private String priority;
+    private String comments;
     private Instant updatedAt;
+    private Instant createdAt;
 }

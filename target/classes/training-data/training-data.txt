@@ -1,61 +1,67 @@
-others qwerty uiop
-orderWorkgroup Unable to process order
-orderWorkgroup Order failed
-orderWorkgroup Failed to process order
-orderWorkgroup multiple orders failed
-orderWorkgroup error-1001
-orderWorkgroup order not found
-orderWorkgroup Unable to process order
-orderWorkgroup Order failed
-orderWorkgroup Failed to process order
-orderWorkgroup multiple orders failed
-orderWorkgroup error-1001
-orderWorkgroup order not found
-orderCancelWorkgroup wrong order please cancel
-orderCancelWorkgroup order jeopardy
-orderCancelWorkgroup order jeopardy cancel order
-orderCancelWorkgroup cancel order
-networkWorkgroup unable to connect to network
-networkWorkgroup no network
-networkWorkgroup no signal
-networkWorkgroup out of coverage
-networkWorkgroup error-1002
-networkWorkgroup signal facility not available
-networkWorkgroup unable to connect to network
-networkWorkgroup no network
-networkWorkgroup no signal
-networkWorkgroup out of coverage
-networkWorkgroup error-1002
-networkWorkgroup signal facility not available
-productWorkgroup product not visible
-productWorkgroup catalog issue
-productWorkgroup product showing no price
-productWorkgroup product description is wrong
-productWorkgroup error-1003
-productWorkgroup product price is not available
-productWorkgroup product not visible
-productWorkgroup catalog issue
-productWorkgroup product showing no price
-productWorkgroup product description is wrong
-productWorkgroup error-1003
-productWorkgroup product price is not available
-productWorkgroup missing catalog
-changeRoleWorkgroup change role of user
-changeRoleWorkgroup user asked to change role
-changeRoleWorkgroup wrong role assigned to user
-changeRoleWorkgroup need to change user role
-FinX-L1-OPS-ACC FinX Access Issue
-FinX-L1-OPS-ACC FinX Access
-FinX-L1-OPS-ACC Fin-X Access Issue
-FinX-L1-OPS-ACC Access Issue FinX
-FinX-L1-OPS-ACC User does not have access to FINX
-FinX-L1-OPS-ACC Login Issue for FIN-X
-FinX-L1-OPS-ACC Login Issue
-FinX-L1-OPS-DEP Production Deployment
-FinX-L1-OPS-DEP Deployment
-FinX-L1-OPS-DEP Fin-X Prod Deployment
-FinX-L1-OPS-DEP Fin-X Production Deployment
-FIN-X-Performance FIN-X Performance
-FIN-X-Performance Performance issue finx
-FIN-X-Performance Issue with performance of FINX
-FIN-X-Performance Performance Issue FIN-X
+otherIssue xxxxxxx
+AccessIssue AD Group for request
+AccessIssue Need to Revoke my FinX accesses as RM
+AccessIssue Finx request access
+AccessIssue Could not find my user in the list to request access
+AccessIssue Access request for Finx
+AccessIssue Not able to access FinX
+AccessIssue Unable to access Finx portal.
+AccessIssue FIN-X Access Issue
+AccessIssue No resource shown in my FinX portal
+AccessIssue Access requested for FinX
+AccessIssue Need access to FinX
+AccessIssue FinX Access issue
+AccessIssue FIN-X Access Issue
+AccessIssue FinX access
+AccessIssue unable to access Finx application
+AccessIssue Need access to Finx
+AccessIssue Unable to view existing and new BCs in my FinX dashboard
+AccessIssue Need Access to FinX system
+AccessIssue Access Blocked
+AccessIssue Can't find switch role option in order to navigate to my resources list
+AccessIssue I'm not defined as a hiring manager.
+AccessIssue Grant user access
+AccessIssue Can't access Finx
+AccessIssue granting access
+AccessIssue Need Access to Finx Tool/Portal
+AccessIssue FIN-X Access Issue
+AccessIssue Not able to Access Finx Tool
+AccessIssue No Data
+AccessIssue Access to Finx tool as I am working as BPT lead for Telco GSL
+AccessIssue FIN-X Access Issue
+AccessIssue FIN-X Access Issue
+AccessIssue Access FinX as hiring manager
+AccessIssue Access to Finx tool as I am working as BPT lead for Telco GSL
+AccessIssue Access required for application testing team.
+AccessIssue Keval Patel's accesses to FinX must be revoked as FDS- EL
+AccessIssue errors while raising vacancy on Finx
+AccessIssue Need access as Line Manager
+AccessIssue FIN-X Access Issue
+AccessIssue Need access to FinX
+AccessIssue Switch roles tab not available
+AccessIssue Being Line manager , Unalble access the FinX
+AccessIssue Unable to update hiring manager
+AccessIssue Need access for FinX portal , as I need to move 1 resource to another project.
+AccessIssue Need access to raise the MPR and BC read-access
+AccessIssue FIN-X Access Issue
+AccessIssue FIN-X Access Issue
+AccessIssue I'm not recognized as a people manager on Finx I can't find the button to switch line manager.
+AccessIssue Hiring manager role
+AccessIssue FIN-X Access Issue
+AccessIssue Need to have accese as a hiring manager Finx
+AccessIssue ICC Owner errors
+AccessIssue I'm not recognized as a people manager
+AccessIssue FIN-X Access Issue
+AccessIssue Access to Priya Darshini Baer
+AccessIssue Need to Revoke my FinX accesses as RM
+AccessIssue FinX access request
+AccessIssue ICCOwner role
+AccessIssue I need to have access on FinX, I'm a line manager in RPA team
+AccessIssue Unable to raise OneRC request for SO
+AccessIssue FIN-X Access Issue
+AccessIssue FIN-X Access Issue
+AccessIssue New User Access
+AccessIssue hiring manager role
+AccessIssue ICCOwner errors
+AccessIssue I Have joined the RM team requesting you to accees for the FinX Support.
+AccessIssue FIN-X Access Issue

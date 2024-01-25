@@ -37,8 +37,8 @@ public class UpdateWorkgroupServiceImpl implements UpdateWorkgroupService {
     @Override
     public List<String[]> updateWorkGroup(List<String[]> csvData) throws IOException {
         for(int i=1;i<csvData.size();i++){
-            csvData.get(i)[6] = getWorkgroupByDescription(csvData.get(i)[2]);
-            csvData.get(i)[5] = "Open ";
+            csvData.get(i)[5] = getWorkgroupByDescription(csvData.get(i)[2]);
+            csvData.get(i)[4] = "Open";
         }
         log.info("Csv Data Prepared with workflow {}",csvData);
         return csvData;
@@ -67,47 +67,19 @@ public class UpdateWorkgroupServiceImpl implements UpdateWorkgroupService {
         for(int i=1;i<csvData.size();i++) {
             auditModelList.add(AuditModel.builder()
                     .id(csvData.get(i)[0])
-                            .ban(csvData.get(i)[1])
-                    .description(csvData.get(i)[2])
-                    .type(csvData.get(i)[3])
-                    .errorCode(csvData.get(i)[4])
-                    .status(csvData.get(i)[5])
-                    .workgroup(csvData.get(i)[6])
-                    .loggedAt(Instant.parse(csvData.get(i)[7]))
+                    .description(csvData.get(i)[1])
+                    .GSL(csvData.get(i)[2])
+                    .createdDate(csvData.get(i)[3])
+                    .status(csvData.get(i)[4])
+                    .category(csvData.get(i)[5])
+                    .action(csvData.get(i)[6])
+                    .ETA(csvData.get(i)[7])
+                    .priority(csvData.get(i)[8])
+                    .comments(csvData.get(i)[9])
+                    .updatedAt(Instant.now())
                     .createdAt(Instant.now())
-                    .updatedAt(Instant.now()).build());
+                    .build());
         }
-        //we can fetch the synthetic data here and add it to prediction db
-        createSyntheticDataList();
-        fetchAndUpdatedAuditListWithSyntheticData(auditModelList);
         return auditModelList;
-    }
-
-    private void fetchAndUpdatedAuditListWithSyntheticData(List<AuditModel> auditModelList) throws IOException {
-
-        ResponseEntity<SyntheticModel[]> syntheticModelList = restTemplate.getForEntity("http://localhost:8081/synthetic",SyntheticModel[].class);
-        if(syntheticModelList.getStatusCode().is2xxSuccessful() && Objects.nonNull(syntheticModelList.getBody())) {
-            for (SyntheticModel syntheticModel : syntheticModelList.getBody()) {
-                auditModelList.add(
-                        AuditModel.builder()
-                                .id(syntheticModel.getId())
-                                .description(syntheticModel.getError())
-                                .errorCode(syntheticModel.getErrorCode())
-                                .type("System Generated")
-                                .status("Open")
-                                .workgroup(getWorkgroupByDescription(syntheticModel.getError()))
-                                .ban(syntheticModel.getBan())
-                                .loggedAt(Instant.now())
-                                .createdAt(Instant.now())
-                                .updatedAt(Instant.now())
-                                .build()
-                );
-            }
-        }
-    }
-
-    private void createSyntheticDataList() {
-        SyntheticUtil.initiateSyntheticData();
-        restTemplate.postForEntity("http://localhost:8081/synthetic", SyntheticUtil.getAllSyntheticData(),List.class);
     }
 }

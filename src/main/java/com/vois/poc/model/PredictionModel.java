@@ -14,17 +14,18 @@ import java.time.Instant;
 @Builder
 public class PredictionModel implements Serializable {
     private String id;
+    private String description;
+    private String GSL;
+    private String createdDate;
+    private String status;
+    private String category;
+    private String action;
+    private String ETA;
+    private String priority;
+    private String comments;
     private String taskFlowId;
     private boolean agentAccepted;
-    private String ban;
-    private String description;
-    private String type;
-    private String errorCode;
-    private String status;
-    private String workgroup;
     private String recoveryActions;
-    private String rca;
-    private String jiraTicketNumber;
     private Instant updatedAt;
     private Instant createdAt;
 }

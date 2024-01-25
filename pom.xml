@@ -36,7 +36,6 @@
         <artifactId>unirest-java</artifactId>
         <version>1.4.9</version>
       </dependency>
-
     </dependencies>
   </dependencyManagement>
 
@@ -44,6 +43,12 @@
     <dependency>
       <groupId>org.camunda.bpm.springboot</groupId>
       <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.camunda.bpm.extension</groupId>
+      <artifactId>camunda-bpm-mail-core</artifactId>
+      <version>1.5.1</version>
     </dependency>
 
     <dependency>

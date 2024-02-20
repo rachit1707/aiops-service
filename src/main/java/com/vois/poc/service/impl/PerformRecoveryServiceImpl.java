@@ -52,4 +52,9 @@ public class PerformRecoveryServiceImpl implements PerformRecoveryService {
         //update the ticket status in audit table
 
     }
+    @Override
+    public void performAccessRecovery(PredictionModel predictionModel) {
+        log.info(".............................Initiating the access recovery process..................................");
+    }
+
 }

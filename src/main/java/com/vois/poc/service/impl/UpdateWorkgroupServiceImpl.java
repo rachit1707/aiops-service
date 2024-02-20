@@ -20,9 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -76,10 +74,19 @@ public class UpdateWorkgroupServiceImpl implements UpdateWorkgroupService {
                     .ETA(csvData.get(i)[7])
                     .priority(csvData.get(i)[8])
                     .comments(csvData.get(i)[9])
+                    .notes(prepareMapFromNotes(csvData.get(i)[10]))
+                    .country(csvData.get(i)[11])
                     .updatedAt(Instant.now())
                     .createdAt(Instant.now())
                     .build());
         }
         return auditModelList;
+    }
+    private Map<String, String> prepareMapFromNotes(String s) {
+        Map<String,String> map = new HashMap<>();
+        String[] data = s.split("-");
+        map.put("user",data[0]);
+        map.put("accessType",data[1]);
+        return map;
     }
 }

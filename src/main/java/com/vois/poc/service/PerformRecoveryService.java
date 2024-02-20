@@ -9,5 +9,6 @@ import java.util.List;
 public interface PerformRecoveryService {
 
     void performRecovery(PredictionModel predictionModel) throws URISyntaxException, InterruptedException;
+    void performAccessRecovery(PredictionModel predictionModel);
 
 }

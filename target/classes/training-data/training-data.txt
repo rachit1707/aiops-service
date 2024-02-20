@@ -1,4 +1,3 @@
-otherIssue xxxxxxx
 AccessIssue AD Group for request
 AccessIssue Need to Revoke my FinX accesses as RM
 AccessIssue Finx request access
@@ -65,3 +64,4 @@ AccessIssue hiring manager role
 AccessIssue ICCOwner errors
 AccessIssue I Have joined the RM team requesting you to accees for the FinX Support.
 AccessIssue FIN-X Access Issue
+OtherIssue asdama

@@ -62,6 +62,8 @@ public class PerformDataModellingServiceImpl implements PerformDataModellingServ
                             .recoveryActions("Assign Role and provide access")
                             .priority(auditModel.getPriority())
                             .comments(auditModel.getComments())
+                            .notes(auditModel.getNotes())
+                            .country(auditModel.getCountry())
                             .updatedAt(auditModel.getUpdatedAt())
                             .createdAt(auditModel.getCreatedAt())
                             .build()

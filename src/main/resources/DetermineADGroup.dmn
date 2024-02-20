@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="DetermineADGroupDMN" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.12.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.2.0">
+  <decision id="DetermineADGroup" name="Determine AD Group">
+    <decisionTable id="DecisionTable_022ezx8">
+      <input id="Input_1" label="AD Type">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>adType</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1rdwx13" label="Country">
+        <inputExpression id="LiteralExpression_1n969qc" typeRef="string">
+          <text>country</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="AD Group" name="adGroup" typeRef="string" biodi:width="264" />
+      <rule id="DecisionRule_13dqsdv">
+        <inputEntry id="UnaryTests_09vwha2">
+          <text>"Hiring Manager"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mkpwo8">
+          <text>"India"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_01rwg23">
+          <text>"APP-VFGroup-FINX-TSSI-ICCOWNER"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1etso3t">
+        <inputEntry id="UnaryTests_0ga72u1">
+          <text>"Hiring Manager"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12ozzpf">
+          <text>"Egypt"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_08dchyt">
+          <text>"APP-VFGroup-FINX-TSSE-ICCOWNER"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_09ozqit">
+        <inputEntry id="UnaryTests_1lwb0k8">
+          <text>"Hiring Manager"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02tclvu">
+          <text>"Romania"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_07nhqps">
+          <text>"APP-VFGroup-FINX-TSSR-ICCOWNER"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="DetermineADGroup">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

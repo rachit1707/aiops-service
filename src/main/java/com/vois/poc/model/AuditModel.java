@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @NoArgsConstructor
@@ -23,6 +24,8 @@ public class AuditModel {
     private String ETA;
     private String priority;
     private String comments;
+    private String country;
+    private Map<String,String> notes;
     private Instant updatedAt;
     private Instant createdAt;
 }

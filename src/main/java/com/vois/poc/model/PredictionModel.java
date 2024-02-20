@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
@@ -23,6 +24,8 @@ public class PredictionModel implements Serializable {
     private String ETA;
     private String priority;
     private String comments;
+    private Map<String,String> notes;
+    private String country;
     private String taskFlowId;
     private boolean agentAccepted;
     private String recoveryActions;

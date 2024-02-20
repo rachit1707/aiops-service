@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0nyfphn" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.12.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
+  <bpmn:collaboration id="Collaboration_0f0pa2d">
+    <bpmn:participant id="AccessIssueRecovery" name="Access Issue Recovery" processRef="access_recovery" />
+  </bpmn:collaboration>
+  <bpmn:process id="access_recovery" isExecutable="true" camunda:historyTimeToLive="180">
+    <bpmn:startEvent id="StartEvent_1" name="Start Access Recovery">
+      <bpmn:outgoing>Flow_0lea1co</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0lea1co" sourceRef="StartEvent_1" targetRef="GetAccessRequest" />
+    <bpmn:sequenceFlow id="Flow_1gef9cc" sourceRef="GetAccessRequest" targetRef="IdentifyADGroup" />
+    <bpmn:serviceTask id="GetAccessRequest" name="Get Access Request" camunda:asyncBefore="true" camunda:delegateExpression="${getAccessRequest}">
+      <bpmn:incoming>Flow_0lea1co</bpmn:incoming>
+      <bpmn:outgoing>Flow_1gef9cc</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0cdnkva" sourceRef="SendMail" targetRef="Event_11280x6" />
+    <bpmn:endEvent id="Event_11280x6" name="End Access Recovery">
+      <bpmn:incoming>Flow_0cdnkva</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="SendMail" name="Send Mail" camunda:asyncBefore="true">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="subject">FinX Access Request</camunda:inputParameter>
+            <camunda:inputParameter name="text">Hi ,
+ 
+Thanks for contacting FinX Support.
+ 
+In order for you to have the hiring manager access, Kindly raise new UAM request with below mentioned AD/Security Group. Please find the attached document containing steps to raise the new access request for the below mentioned AD groups.
+ 
+ONERC portal link :One Request Center (vodafone.com)
+AD Group for request: ${adGroup}
+ 
+Once the request has been approved by both Line manager and AD group owner and the generated INC is resolved then you will be able to access the application.
+ 
+Please reach out in case of any further queries.
+ 
+Thanks and Regards
+FinX Support</camunda:inputParameter>
+            <camunda:inputParameter name="to">${email}</camunda:inputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>mail-send</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0zln6qj</bpmn:incoming>
+      <bpmn:outgoing>Flow_0cdnkva</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0zln6qj" sourceRef="IdentifyADGroup" targetRef="SendMail" />
+    <bpmn:businessRuleTask id="IdentifyADGroup" name="Identify AD Group" camunda:asyncBefore="true" camunda:resultVariable="adGroup" camunda:decisionRef="DetermineADGroup" camunda:mapDecisionResult="singleEntry">
+      <bpmn:extensionElements>
+        <camunda:executionListener delegateExpression="${identifyADGroup}" event="end" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="adType">${adType}</camunda:inputParameter>
+          <camunda:inputParameter name="country">${country}</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1gef9cc</bpmn:incoming>
+      <bpmn:outgoing>Flow_0zln6qj</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0f0pa2d">
+      <bpmndi:BPMNShape id="Participant_0zih8ej_di" bpmnElement="AccessIssueRecovery" isHorizontal="true">
+        <dc:Bounds x="160" y="80" width="650" height="240" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="212" y="169" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="199" y="212" width="62" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0sfqtyz_di" bpmnElement="GetAccessRequest">
+        <dc:Bounds x="300" y="147" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_11280x6_di" bpmnElement="Event_11280x6">
+        <dc:Bounds x="752" y="169" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="741" y="212" width="58" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1qu80vq_di" bpmnElement="SendMail">
+        <dc:Bounds x="600" y="147" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0xlsx5n_di" bpmnElement="IdentifyADGroup">
+        <dc:Bounds x="450" y="147" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0lea1co_di" bpmnElement="Flow_0lea1co">
+        <di:waypoint x="248" y="187" />
+        <di:waypoint x="300" y="187" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1gef9cc_di" bpmnElement="Flow_1gef9cc">
+        <di:waypoint x="400" y="187" />
+        <di:waypoint x="450" y="187" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0cdnkva_di" bpmnElement="Flow_0cdnkva">
+        <di:waypoint x="700" y="187" />
+        <di:waypoint x="752" y="187" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0zln6qj_di" bpmnElement="Flow_0zln6qj">
+        <di:waypoint x="550" y="187" />
+        <di:waypoint x="600" y="187" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

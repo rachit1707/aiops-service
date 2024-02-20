@@ -1,3 +1,4 @@
-reference,Description,GSL,Created Date,Status,category,action,ETA,priority,comments
-INC000079551873,FIN-X Access Issue,Digital SWE - Channels & DXL,3-Oct-23,New,Access Issues,FinX,4-Oct-23,Yes,Access Issue,
-INC000080310191,No resource shown in my FinX portal,Digital SWE - Channels & DXL,19-Oct-23,New,Access Issues,FinX,25-Oct-23,Yes,Access Issue,
+reference,Description,GSL,Created Date,Status,category,action,ETA,priority,comments,notes,country
+INC000079551873,FIN-X Access Issue,Digital SWE - Channels & DXL,3-Oct-23,Open,Access Issues,FinX,2024-02-20T05:07:59Z,Yes,Access Issue,rachit.sharma@vodafone.com-Hiring Manager,India
+INC000080310191,No resource shown in my FinX portal,Digital SWE - Channels & DXL,2024-02-20T05:07:59Z,Open,Access Issues,FinX,19-Oct-23,Yes,Access Issue,rachit.sharma@vodafone.com-Hiring Manager,India
+INC000084158859,hiring manager role,Telco IT,2024-02-20T05:07:59Z,Open,Access Issues,FinX,19-Jan-24,No,Access Issue,rachit.sharma@vodafone.com-Hiring Manager,Egypt
